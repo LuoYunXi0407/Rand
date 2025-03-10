@@ -1,0 +1,186 @@
+﻿<Page
+    x:Class="rand7.Views.Pages.Settings.BalancePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:rand7.Views.Pages.Settings"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="平衡选项"
+    d:DataContext="{d:DesignInstance local:BalancePage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    ui:NavigationView.HeaderContent="平衡选项"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+            ScrollViewer.PanningMode="VerticalOnly"
+
+    mc:Ignorable="d">
+
+
+
+        <StackPanel>
+            <TextBlock
+    FontSize="20"
+    FontWeight="SemiBold"
+        Visibility="Collapsed"
+    Text="平衡模式" />
+    <ui:CardExpander
+Margin="0,8,0,0"
+                x:Name="Student_Avoid_Duplication_Setting_Expander"
+            Icon="{ui:SymbolIcon ArrowRepeatAllOff24,  Filled=False}"
+IsEnabled="True"
+IsExpanded="False">
+        <ui:CardExpander.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+Text="平衡模式"
+TextWrapping="WrapWithOverflow" />
+                            <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+Text="选择平衡机制使用的模式（智能平衡模式不支持摇号的时候按顺序摇）"
+TextWrapping="WrapWithOverflow" />
+                           
+                </StackPanel>
+
+                <ComboBox
+                                Margin="0,0,10,0"
+                                Grid.Column="2"
+                Focusable="False"
+                x:Name="Student_Avoid_Duplication_Setting"
+                SelectionChanged="Student_Avoid_Duplication_Setting_SelectionChanged"
+                HorizontalAlignment="Left"
+                SelectedIndex="0" >
+                    <ComboBoxItem Content="关" />
+                    <ComboBoxItem Content="不重复直到抽完全部人" />
+                    <ComboBoxItem Content="智能平衡模式" />
+                </ComboBox>
+            </Grid>
+        </ui:CardExpander.Header>
+
+
+        <!--  CardExpander content  -->
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*"  />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ui:SymbolIcon Grid.Column="1" FontSize="24" Symbol="Share24"/>
+                <StackPanel Grid.Column="2" Margin="12,0,0,0" VerticalAlignment="Center">
+                            <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+Text="作用范围"
+TextWrapping="WrapWithOverflow" />
+                            <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+Text="选择平衡选项的作用范围"
+TextWrapping="WrapWithOverflow" />
+                            
+                </StackPanel>
+                <StackPanel Grid.Column="3" x:Name="Student_Avoid_Duplication_Mode_Menu" IsEnabled="False" >
+
+                    <ComboBox
+                Focusable="False"
+                MinWidth="200"
+                HorizontalAlignment="Left"
+                x:Name="Student_Avoid_Duplication_Mode"
+                SelectionChanged="Student_Avoid_Duplication_Mode_SelectionChanged"
+                >
+                        <ComboBoxItem Content="仅单人" />
+                        <ComboBoxItem Content="仅多人" />
+                        <ComboBoxItem Content="同时开启单人和多人，但是隔离" />
+                        <ComboBoxItem Content="同时开启单人和多人，但是共享" />
+                    </ComboBox>
+                </StackPanel>
+
+            </Grid>
+
+                    <Border
+    Margin="0,20"
+    BorderBrush="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+    BorderThickness="0.5"
+    Visibility="Visible" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*"  />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <ui:SymbolIcon Grid.Column="1" FontSize="24" Symbol="Save24"/>
+                        <StackPanel Grid.Column="2" Margin="12,0,0,0" VerticalAlignment="Center">
+                            <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+Text="关闭抽号器时保存数据"
+TextWrapping="WrapWithOverflow" />
+                            <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+Text="若开启，平衡机制将持续作用，若关闭，平衡机制将持续到关闭抽号器"
+TextWrapping="WrapWithOverflow" />
+                            
+                        </StackPanel>
+                    <ui:ToggleSwitch  x:Name="Student_Avoid_Duplication_Setting_Save" Grid.Column="3"
+></ui:ToggleSwitch>
+
+                    </Grid>
+
+
+
+
+
+                </StackPanel>
+
+
+    </ui:CardExpander>
+        <TextBlock
+    Margin="0,24,0,0"
+    FontSize="20"
+    FontWeight="SemiBold"
+    Text="想要了解不同平衡模式的作用机制？" />
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon Book24,  Filled=False}">
+            <ui:CardControl.Header>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+
+                    <ui:TextBlock
+                Margin="0"
+                FontTypography="BodyStrong"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                Text="使用文档"
+                TextWrapping="WrapWithOverflow" />
+                    <ui:TextBlock
+                Appearance="Secondary"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Text="查看使用文档中对不同平衡模式机制的诠释！"
+                TextWrapping="WrapWithOverflow" />
+
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ui:HyperlinkButton
+        Content="使用文档"
+        Icon="{ui:SymbolIcon Link24}"
+        NavigateUri="" />
+
+        </ui:CardControl>
+    </StackPanel>
+</Page>

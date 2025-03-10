@@ -1,0 +1,109 @@
+﻿<Page
+    x:Class="rand7.Views.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:rand7.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="主页"
+    d:DataContext="{d:DesignInstance local:HomePage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+            ScrollViewer.PanningMode="VerticalOnly"
+
+    mc:Ignorable="d">
+
+    
+
+        <StackPanel>
+            <ui:Button
+        Grid.Column="0"
+        Command="{Binding ViewModel.CounterIncrementCommand, Mode=OneWay}"
+        Content="Click me!"
+                Visibility="Collapsed"
+        Icon="Fluent24" />
+            <TextBlock
+        Grid.Column="1"
+        Margin="12,0,0,0"
+        VerticalAlignment="Center"
+                Visibility="Collapsed"
+        Text="{Binding ViewModel.Counter, Mode=OneWay}" />
+
+            <TextBlock
+x:Name="Num"
+FontSize="200"
+FontWeight="Medium"
+    Margin="0,-20,0,0"
+><Run Language="zh-cn" Text="--"/></TextBlock>
+
+            <ui:Button Grid.Column="0"  Content="抽号" Click="Button_Roll_Click"   Icon="{ui:SymbolIcon FlashPlay20, FontSize=30, Filled=False}" x:Name="Button_Roll" Appearance="Primary" />
+
+            <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon Whiteboard24,  Filled=False}">
+                <ui:CardControl.Header>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+
+                        <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+Text="范围"
+TextWrapping="WrapWithOverflow" />
+                        <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+Text="设置抽号的范围"
+TextWrapping="WrapWithOverflow" />
+                        
+                    </StackPanel>
+                </ui:CardControl.Header>
+                <Grid  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--<ui:TextBox x:Name="Numfrom" Grid.Column="0" Text="1" PlaceholderText="起" InputMethod.IsInputMethodEnabled="False" PreviewTextInput="rlimitnumber"/>-->
+                <ui:NumberBox x:Name="Numfrom" Grid.Column="0" PlaceholderText="起" Minimum="1" Maximum="99999" MaxDecimalPlaces="0"></ui:NumberBox>
+                    <TextBlock
+FontSize="20"
+FontWeight="Medium"  Grid.Column="1" Margin="0,5,0,0"
+><Run Language="zh-cn" Text="~"/></TextBlock>
+                <ui:NumberBox x:Name="Numto" Grid.Column="2" PlaceholderText="止" Minimum="1" Maximum="99999" MaxDecimalPlaces="0"></ui:NumberBox>
+
+                    <!--<<ui:TextBox x:Name="Numto" Grid.Column="2"  Text="" PlaceholderText="止" InputMethod.IsInputMethodEnabled="False" PreviewTextInput="rlimitnumber"/>-->
+
+                </Grid>
+            </ui:CardControl>
+            <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon ArrowRepeatAllOff24,  Filled=False}">
+                <ui:CardControl.Header>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+
+                        <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+Text="不重复设置"
+TextWrapping="WrapWithOverflow" />
+                        <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+Text="不重复直到 重启/抽完全部的数/修改范围"
+TextWrapping="WrapWithOverflow" />
+
+                        
+                    </StackPanel>
+                </ui:CardControl.Header>
+                <ui:ToggleSwitch Margin="0,0,0,0" x:Name="Single_Number_Avoid_Duplication_Until_Restart" Content="">
+                </ui:ToggleSwitch>
+            </ui:CardControl>
+        </StackPanel>
+
+    
+</Page>

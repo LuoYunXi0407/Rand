@@ -1,0 +1,124 @@
+﻿<Page
+    x:Class="rand7.Views.Pages.Settings.NumberPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:rand7.Views.Pages.Settings"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="抽数模式"
+    d:DataContext="{d:DesignInstance local:NumberPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    ui:NavigationView.HeaderContent="抽数模式"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+            ScrollViewer.PanningMode="VerticalOnly"
+
+    mc:Ignorable="d">
+
+
+
+        <StackPanel>
+            <TextBlock
+                Visibility="Collapsed"
+    FontSize="20"
+    FontWeight="SemiBold"
+    Text="Number" />
+            <ui:CardExpander
+Margin="0,8,0,0"
+                x:Name="Single_Number_Roll_Expander"
+            Icon="{ui:SymbolIcon Lottery24,  Filled=False}"
+IsEnabled="True"
+IsExpanded="True">
+                <ui:CardExpander.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+Text="摇号模式"
+TextWrapping="WrapWithOverflow" />
+                            <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+Text="若开启，则抽号时需要点击开始摇号和停止摇号；若关闭，点击抽号直接出结果"
+TextWrapping="WrapWithOverflow" />
+                            
+                        </StackPanel>
+
+                        <ui:ToggleSwitch Grid.Column="1" Margin="0,0,10,0" x:Name="Single_Number_Roll" ToggleButton.Checked="Single_Number_Roll_Checked"  ToggleButton.Unchecked="Single_Number_Roll_Unchecked"/>
+
+                    </Grid>
+                </ui:CardExpander.Header>
+
+
+                <!--  CardExpander content  -->
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*"  />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <ui:SymbolIcon Grid.Column="1" FontSize="24" Symbol="ArrowRepeatAll24"/>
+                        <StackPanel Grid.Column="2" Margin="12,0,0,0" VerticalAlignment="Center">
+                            <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+Text="摇号时按顺序摇"
+TextWrapping="WrapWithOverflow" />
+                            <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+Text="若开启，摇号时根据座号列表顺序循环，若关闭，则随机循环"
+TextWrapping="WrapWithOverflow" />
+                            
+                        </StackPanel>
+                        <ui:ToggleSwitch Grid.Column="3" Margin="12,0,0,0" x:Name="Single_Number_Roll_In_Order" ToggleButton.Checked="Single_Number_Roll_In_Order_Checked"  ToggleButton.Unchecked="Single_Number_Roll_In_Order_Unchecked"/>
+
+
+                    </Grid>
+
+
+
+
+
+
+
+                </StackPanel>
+
+
+            </ui:CardExpander>
+
+            <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon DesktopSpeaker24,  Filled=False}" >
+                <ui:CardControl.Header>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+Text="语音"
+TextWrapping="WrapWithOverflow" />
+                        <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+Text="若开启，则抽号出结果时语音结果"
+TextWrapping="WrapWithOverflow" />
+                        
+                    </StackPanel>
+                </ui:CardControl.Header>
+                <ui:ToggleSwitch Margin="12,0,0,0" x:Name="Single_Number_Voice" ToggleButton.Checked="Single_Number_Voice_Checked"  Unchecked="Single_Number_Voice_Unchecked"/>
+
+            </ui:CardControl>
+        </StackPanel>
+</Page>

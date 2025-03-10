@@ -1,0 +1,571 @@
+﻿<Page
+    x:Class="rand7.Views.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:rand7.Helpers"
+    xmlns:local="clr-namespace:rand7.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:settings="clr-namespace:rand7.Views.Pages.Settings"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="设置"
+    d:DataContext="{d:DesignInstance local:SettingsPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    ScrollViewer.PanningMode="VerticalOnly"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+    </Page.Resources>
+
+    <StackPanel>
+
+
+        <ui:TextBlock
+            x:Name="Name_ini"
+            Margin="0,0,0,0"
+            FontSize="20"
+            FontWeight="SemiBold">
+            <Run Language="zh-cn" Text="姓名设置" />
+        </ui:TextBlock>
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon TextBulletListSquareEdit24,  Filled=False}">
+            <ui:CardControl.Header>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <ui:TextBlock
+                        Margin="0"
+                        FontTypography="BodyStrong"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        Text="设置姓名"
+                        TextWrapping="WrapWithOverflow" />
+
+                    <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
+                        <ui:TextBlock
+                            Appearance="Secondary"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="请在认真阅读"
+                            TextWrapping="WrapWithOverflow" />
+                        <ui:HyperlinkButton
+                            Margin="0,-5,0,0"
+                            Content="使用文档"
+                            FontSize="12"
+                            Icon="{ui:SymbolIcon Link24}"
+                            NavigateUri="https://github.com/LuoYunXi0407/Rand" />
+
+                        <ui:TextBlock
+                            Appearance="Secondary"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="后，点击按钮设置姓名"
+                            TextWrapping="WrapWithOverflow" />
+                    </StackPanel>
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ui:Button
+                x:Name="Set_Name"
+                Grid.Column="0"
+                Margin="0,5,0,0"
+                Click="Button_Set_Name_Click"
+                Content="设置姓名"
+                Icon="{ui:SymbolIcon Pen24,
+                                     Filled=False}" />
+        </ui:CardControl>
+
+        <ui:Flyout
+x:Name="Set_Name_flyout" HorizontalAlignment="Right" Placement="MousePoint">
+            <StackPanel Margin="5,5,5,0">
+                <ui:TextBlock
+    Appearance="Secondary"
+                    FontSize="14"
+    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+    Text="注意：按下按钮后将自动【关闭抽号器】并且打开姓名编辑页面。&#xA;请确保你已阅读完使用文档。&#xA;&#xA;编辑完姓名后请保存再打开抽号器"
+    TextWrapping="WrapWithOverflow" />
+                
+                <Button Margin="0,8,0,0" Content="我知道了" x:Name="Button_Set_Name_Confirm" Click="Button_Set_Name_Confirm_Click" />
+            </StackPanel>
+        </ui:Flyout>
+
+        <TextBlock
+            Margin="0,4,0,0"
+            FontSize="20"
+            FontWeight="SemiBold"
+            Text="座号范围设置" />
+        <ui:CardExpander
+                x:Name="Set_Range_Expander"
+Margin="0,8,0,0"
+                
+            Icon="{ui:SymbolIcon FlashAuto24,  Filled=False}"
+IsEnabled="True"
+IsExpanded="False">
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <ui:TextBlock
+    Margin="0"
+    FontTypography="BodyStrong"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Text="自动识别座号范围"
+    TextWrapping="WrapWithOverflow" />
+                        <ui:TextBlock
+    Appearance="Secondary"
+    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+    Text="若开启，座号范围为自动识别，若关闭，则需要手动设置座号范围"
+    TextWrapping="WrapWithOverflow" />
+                        
+                    </StackPanel>
+
+                    <ui:ToggleSwitch  Grid.Column="1" Margin="0,0,10,0" x:Name="Set_Range" ToggleButton.Checked="Set_Range_Checked"  ToggleButton.Unchecked="Set_Range_Unchecked"/>
+
+                </Grid>
+            </ui:CardExpander.Header>
+
+
+            <!--  CardExpander content  -->
+
+            <StackPanel x:Name="Set_Range_Menu" IsEnabled="False">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*"  />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ui:SymbolIcon Grid.Column="1" FontSize="24" Symbol="AppsList24"/>
+                    <StackPanel Grid.Column="2" Margin="12,0,0,0" VerticalAlignment="Center">
+                        <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+Text="设置座号范围"
+TextWrapping="WrapWithOverflow" />
+                        <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+Text="*你可以在设置姓名后，点击「自动识别填入」并点击「保存」！"
+TextWrapping="WrapWithOverflow" />
+
+                        
+                    </StackPanel>
+
+                    <Grid Margin="0,0,10,0" Grid.Column="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <ui:NumberBox x:Name="Numfrom" Grid.Column="0" Text="1" PlaceholderText="起" Minimum="1" Maximum="99999" IsEnabled="False" MaxDecimalPlaces="0"/>
+
+                        <TextBlock
+FontSize="20"
+FontWeight="Medium"  Grid.Column="1" Margin="0,18,0,0"
+><Run Language="zh-cn" Text="~"/></TextBlock>
+                        <!-- <ui:TextBox x:Name="Numto" Grid.Column="2"  Text="" PlaceholderText="止" InputMethod.IsInputMethodEnabled="False" PreviewTextInput="rlimitnumber"/>-->
+
+                        <ui:NumberBox x:Name="Numto" Grid.Column="2"  Value="60" PlaceholderText="止" Minimum="1" Maximum="99999" MaxDecimalPlaces="0" />
+
+                    </Grid>
+                </Grid>
+                <Border
+                        Margin="0,20"
+                        BorderBrush="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderThickness="0.5"
+                        Visibility="Visible" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*"  />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ui:SymbolIcon Grid.Column="1" FontSize="24" Symbol="Save24"/>
+                    <StackPanel Grid.Column="2" Margin="12,0,0,0" VerticalAlignment="Center">
+                        <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+Text="自动识别填入和保存"
+TextWrapping="WrapWithOverflow" />
+                        <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+Text="自动识别填入后请确定无误再保存！"
+TextWrapping="WrapWithOverflow" />
+
+                       
+                    </StackPanel>
+                    <StackPanel Grid.Column="3" Orientation="Horizontal"  >
+
+                        <ui:Button Grid.Column="0"  Margin="0,0,10,0" Content="自动识别填入" Click="Button_Auto_Range_Click"  Icon="{ui:SymbolIcon FlashAuto24,  Filled=False}" x:Name="Button_Auto_Range" Appearance="Secondary" />
+                        <ui:Button Grid.Column="0"  Margin="0,0,10,0" Content="保存" Click="Button_Save_Range_Click"  Icon="{ui:SymbolIcon Save24,  Filled=False}" x:Name="Button_Save_Range" Appearance="Primary" />
+
+                    </StackPanel>
+
+                </Grid>
+
+
+
+
+
+
+
+            </StackPanel>
+
+
+        </ui:CardExpander>
+        <TextBlock
+            Margin="0,24,0,0"
+            FontSize="20"
+            FontWeight="SemiBold"
+            Text="平衡选项" />
+        <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            FontWeight="Bold"
+Text="*注意：下列两个选项修改后会【重置】保存的已抽到的学生的名单！"
+TextWrapping="WrapWithOverflow" />
+        <ui:CardAction
+            Visibility="Collapsed"
+            Margin="0,6,0,0"
+            Command="{Binding ViewModel.NavigateBalancePageCommand}"
+            Icon="{ui:SymbolIcon Scales24,
+                                 
+                                 Filled=False}">
+            <StackPanel>
+                <ui:TextBlock
+                    Margin="0"
+                    FontTypography="BodyStrong"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Text="平衡选项"
+                    TextWrapping="WrapWithOverflow" />
+                <ui:TextBlock
+                    Appearance="Secondary"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="令抽到的号不重复，或者在一段时间内降低刚抽到的号的频率"
+                    TextWrapping="WrapWithOverflow" />
+            </StackPanel>
+        </ui:CardAction>
+
+        <ui:CardExpander
+Margin="0,8,0,0"
+                x:Name="Student_Avoid_Duplication_Setting_Expander"
+            Icon="{ui:SymbolIcon ArrowRepeatAllOff24,  Filled=False}"
+IsEnabled="True"
+IsExpanded="False">
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+TextWrapping="WrapWithOverflow" >
+                            <Run Language="zh-cn" Text="不重复选项"/>
+                        </ui:TextBlock>
+                        <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+TextWrapping="WrapWithOverflow" >
+                            <Run Language="zh-cn" Text="选择是否在抽到号一段时间之内不会重复抽到"/>
+                        </ui:TextBlock>
+
+                    </StackPanel>
+
+                    <ComboBox
+                                Margin="0,0,10,0"
+                                Grid.Column="2"
+                Focusable="False"
+                x:Name="Student_Avoid_Duplication_Setting"
+                SelectionChanged="Student_Avoid_Duplication_Setting_SelectionChanged"
+                HorizontalAlignment="Left"
+                SelectedIndex="0" >
+                        <ComboBoxItem Content="关" />
+                        <ComboBoxItem Content="不重复直到重启抽号器" />
+                        <ComboBoxItem Content="不重复直到抽完全部人" />
+                    </ComboBox>
+                </Grid>
+            </ui:CardExpander.Header>
+
+
+            <!--  CardExpander content  -->
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*"  />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ui:SymbolIcon Grid.Column="1" FontSize="24" Symbol="Share24"/>
+                    <StackPanel Grid.Column="2" Margin="12,0,0,0" VerticalAlignment="Center">
+                        <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+Text="作用范围"
+TextWrapping="WrapWithOverflow" />
+                        <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+Text="选择平衡选项的作用范围"
+TextWrapping="WrapWithOverflow" />
+
+                    </StackPanel>
+                    <StackPanel Grid.Column="3" x:Name="Student_Avoid_Duplication_Mode_Menu" IsEnabled="False" >
+
+                        <ComboBox
+                Focusable="False"
+                MinWidth="200"
+                HorizontalAlignment="Left"
+                x:Name="Student_Avoid_Duplication_Mode"
+                SelectionChanged="Student_Avoid_Duplication_Mode_SelectionChanged"
+                >
+                            <ComboBoxItem Content="仅单人" />
+                            <ComboBoxItem Content="仅多人" />
+                            <ComboBoxItem Content="同时开启单人和多人，但是隔离" />
+                            <ComboBoxItem Content="同时开启单人和多人，但是共享" />
+                        </ComboBox>
+                    </StackPanel>
+
+                </Grid>
+
+                
+
+
+
+
+
+            </StackPanel>
+
+
+        </ui:CardExpander>
+
+        <TextBlock
+            Margin="0,24,0,0"
+            FontSize="20"
+            FontWeight="SemiBold"
+            Text="自定义抽号器" />
+        <ui:CardAction
+            Margin="0,6,0,0"
+            Command="{Binding ViewModel.NavigatePersonalizationPageCommand}"
+            Icon="{ui:SymbolIcon Color24,
+                                 
+                                 Filled=False}">
+            <StackPanel>
+                <ui:TextBlock
+                    Margin="0"
+                    FontTypography="BodyStrong"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Text="个性化"
+                    TextWrapping="WrapWithOverflow" />
+                <ui:TextBlock
+                    Appearance="Secondary"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="个性化抽号器外观和显示偏好"
+                    TextWrapping="WrapWithOverflow" />
+            </StackPanel>
+        </ui:CardAction>
+        <ui:CardAction
+            Margin="0,6,0,0"
+            Command="{Binding ViewModel.NavigateNumberPageCommand}"
+            Icon="{ui:SymbolIcon NumberSymbol24,
+                                 
+                                 Filled=False}">
+            <StackPanel>
+                <ui:TextBlock
+                    Margin="0"
+                    FontTypography="BodyStrong"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Text="抽数模式"
+                    TextWrapping="WrapWithOverflow" />
+                <ui:TextBlock
+                    Appearance="Secondary"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="设置主页抽数模式下的偏好"
+                    TextWrapping="WrapWithOverflow" />
+            </StackPanel>
+        </ui:CardAction>
+
+        <ui:CardAction
+            Margin="0,6,0,0"
+            Command="{Binding ViewModel.NavigateSingleStudentPageCommand}"
+            Icon="{ui:SymbolIcon Person24,
+                                 
+                                 Filled=False}">
+            <StackPanel>
+                <ui:TextBlock
+                    Margin="0"
+                    FontTypography="BodyStrong"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Text="单人模式"
+                    TextWrapping="WrapWithOverflow" />
+                <ui:TextBlock
+                    Appearance="Secondary"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="设置单人模式下的抽号偏好"
+                    TextWrapping="WrapWithOverflow" />
+            </StackPanel>
+        </ui:CardAction>
+        <ui:CardAction
+            Margin="0,6,0,0"
+            Command="{Binding ViewModel.NavigateMultipleStudentPageCommand}"
+            Icon="{ui:SymbolIcon PeopleTeam24,
+                                 Filled=False}">
+            <StackPanel>
+                <ui:TextBlock
+                    Margin="0"
+                    FontTypography="BodyStrong"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Text="多人模式"
+                    TextWrapping="WrapWithOverflow" />
+                <ui:TextBlock
+                    Appearance="Secondary"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="设置多人模式下的抽号偏好"
+                    TextWrapping="WrapWithOverflow" />
+            </StackPanel>
+        </ui:CardAction>
+        <TextBlock
+            Margin="0,24,0,0"
+            FontSize="20"
+            FontWeight="SemiBold"
+            Text="辅助功能" />
+
+        <ui:CardAction
+    Margin="0,6,0,0"
+    Command="{Binding ViewModel.NavigateDeveloperPageCommand}"
+    Icon="{ui:SymbolIcon WindowDevTools24,
+                         Filled=False}">
+            <StackPanel>
+                <ui:TextBlock
+            Margin="0"
+            FontTypography="BodyStrong"
+            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+            Text="开发者选项"
+            TextWrapping="WrapWithOverflow" />
+                <ui:TextBlock
+            Appearance="Secondary"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            Text="无实际用途，开发者选项正在开发中"
+            TextWrapping="WrapWithOverflow" />
+            </StackPanel>
+        </ui:CardAction>
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon WrenchScrewdriver24,  Filled=False}">
+            <ui:CardControl.Header>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <ui:TextBlock
+                Margin="0"
+                FontTypography="BodyStrong"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                Text="恢复默认设置"
+                TextWrapping="WrapWithOverflow" />
+                    <ui:TextBlock
+                Appearance="Secondary"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Text="将所有设置恢复到默认设置（重启生效）"
+                TextWrapping="WrapWithOverflow" />
+
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ui:Button
+        Margin="12,0,0,0"
+        Click="Set_Defualt_Click"
+        Content="恢复默认设置"
+                Icon="{ui:SymbolIcon ArrowSync24,
+                     Filled=False}"/>
+        </ui:CardControl>
+        <ui:Flyout
+x:Name="Set_Defualt_flyout" HorizontalAlignment="Right" Placement="MousePoint" >
+            <StackPanel Margin="5,5,5,0">
+                <TextBlock
+                    
+                    FontSize="14"
+                                Width="280"
+                                HorizontalAlignment="Left"
+                                Text="注意：你将重置所有设置到默认设置，该过程不可逆！"
+                                TextWrapping="WrapWithOverflow" />
+                <TextBlock
+                    FontSize="14"
+                                Width="280"
+                                HorizontalAlignment="Left"
+                                Text="按下确定按钮后，抽号器将【自动关闭】并将所有设置恢复到默认设置。请自行重新打开抽号器。"
+                                TextWrapping="WrapWithOverflow" />
+                <StackPanel Orientation="Horizontal">
+                    <ui:Button Margin="0,8,0,0" Content="确定" Click="Button_Set_Defualt_Confirm_Click" Appearance="Primary" />
+                    <ui:Button Margin="5,8,0,0" Content="取消" Click="Button_Set_Defualt_Cancel_Click" />
+                </StackPanel>
+            </StackPanel>
+        </ui:Flyout>
+        
+        <TextBlock
+            Margin="0,4,0,0"
+            FontSize="20"
+            FontWeight="SemiBold"
+            Text="关于" />
+        <ui:CardAction
+            Margin="0,6,0,0"
+            Command="{Binding ViewModel.NavigateAboutPageCommand}"
+            Icon="{ui:SymbolIcon Info24,
+                                 Filled=False}">
+            <StackPanel>
+                <ui:TextBlock
+                    Margin="0"
+                    FontTypography="BodyStrong"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Text="关于"
+                    TextWrapping="WrapWithOverflow" />
+                <ui:TextBlock
+                    Appearance="Secondary"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="关于抽号器"
+                    TextWrapping="WrapWithOverflow" />
+            </StackPanel>
+        </ui:CardAction>
+
+        <TextBlock
+            FontSize="20"
+            FontWeight="Medium"
+            Text="Personalization"
+            Visibility="Collapsed" />
+        <TextBlock
+            Margin="0,12,0,0"
+            Text="Theme"
+            Visibility="Collapsed" />
+        <TextBlock
+            Margin="0,24,0,0"
+            FontSize="20"
+            FontWeight="Medium"
+            Text="About rand7"
+            Visibility="Collapsed" />
+        <TextBlock
+            Margin="0,12,0,0"
+            Text="{Binding ViewModel.AppVersion, Mode=OneWay}"
+            Visibility="Collapsed" />
+
+        <Button
+            Command="{Binding ViewModel.LightThemeClickCommand}"
+            Content="Light"
+            Visibility="Collapsed" />
+        <Button
+            Command="{Binding ViewModel.DarkThemeClickCommand}"
+            Content="Dark"
+            Visibility="Collapsed" />
+        <Button
+            Command="{Binding ViewModel.AutoThemeClickCommand}"
+            Content="Auto"
+            Visibility="Collapsed" />
+        
+    </StackPanel>
+    
+</Page>
