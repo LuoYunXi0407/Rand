@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/8565b90d-c8f2-4fc3-9075-caac7943e470)# 抽号器
+# 抽号器
 
 
 ## ✨ 介绍
@@ -7,7 +7,7 @@
 - 📌 一体机必备，针对 **触摸屏优化**
 - 📌 现代化的 **Fluent Design** 设计
 
-![image](https://github.com/user-attachments/assets/7c6e9155-65e3-4c3e-a0f3-6828d5fa704f)
+![image](https://github.com/user-attachments/assets/9237f4df-c18e-4015-8b0b-a8d032880676)
 
 
 🔹 🪟 **适配系统**：
@@ -36,7 +36,7 @@
 - 💡建议把下载的文件放到硬盘某个地方（例如 D 盘的某个文件夹内），而不是桌面
 - 💡如果你下载的是 `.exe` 结尾的可执行文件，你可以直接 `右键-显示更多选项（Win11，其他系统跳过）-发送到-桌面快捷方式` 来创建快捷方式
   
-- ![image](https://github.com/user-attachments/assets/be9e0cff-eb77-4409-a8bd-2e3cda8ee80d)
+![image](https://github.com/user-attachments/assets/a28798ad-85fb-4bab-88c2-5f495e0a7ec3)
 
 
 
@@ -56,13 +56,13 @@
 
 #### 程序主界面
 
-![image](https://github.com/user-attachments/assets/12bae792-5b56-4614-8142-9d8d2f469026)
+![image](https://github.com/user-attachments/assets/7529250d-8d2e-4699-b525-d7828fb5beeb)
 
 主页用于临时起意来抽号，输入抽的号的起点和终点，然后点击开始按钮来抽号吧！
 
-![image](https://github.com/user-attachments/assets/89784169-06ff-4cae-ae3d-9ad86b4a7a40)
+![image](https://github.com/user-attachments/assets/d9dcd31e-6851-44bf-8d6e-b1ecade23365)
 
-![image](https://github.com/user-attachments/assets/c3e4d542-a75c-412f-9854-81460d05db97)
+![image](https://github.com/user-attachments/assets/9fb6c113-50dd-4053-a268-d558dac5fcf0)
 
 单人和多人用于抽取班级的号，你可以前往设置配置姓名，亦或是配置座号范围
 
@@ -73,7 +73,7 @@
 
 ### 配置姓名
 
-![image](https://github.com/user-attachments/assets/ee56a0d7-8b17-46c7-9b70-1e9f421f37d8)
+![image](https://github.com/user-attachments/assets/39908104-9c0a-4f59-9ea8-2bdaa36571b4)
 
 1. 点击设置里的「设置姓名」
 > 你应该有类似于这样子的一个班级学生名单
@@ -108,7 +108,7 @@
 
 - ✅ 可以自定义暗色模式和显示的座号、姓名格式（主题色随系统设置，暂时无法更改）
 
-  ![image](https://github.com/user-attachments/assets/b9db611f-917b-4221-975f-d7f37df60baf)
+![image](https://github.com/user-attachments/assets/7c3c09a0-66fe-4fcb-9b1c-8f31c2a552e3)
 
 
 - ✅ 可以让抽到的学生不重复，直到抽完全部学生（未来会上线更优化的平衡机制，防止学生抽到后高枕无忧）
@@ -130,6 +130,9 @@
 
 ### ⚠️ 程序会生成 ***配置文件** ；如果你设置了平衡模式，会保存抽到的座号信息。请不要修改这些文件，防止出现无法预料的异常！
 > 因为会生成这些文件，所以不建议把抽号器本体放在桌面
+
+- Q：为什么配置文件生成在本地而不是公共目录或者注册表？
+- A：因为很多地方的学校都有冰点还原
 
 ### ❓如果有其他问题，欢迎在 Issues 中提出
 
