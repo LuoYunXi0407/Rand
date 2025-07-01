@@ -13,12 +13,17 @@ using System.DirectoryServices.ActiveDirectory;
 using rand7.Views.Windows;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Abstractions.Controls;
+using System.Printing;
+using System.Windows.Automation.Peers;
 
 
 namespace rand7.Views.Pages
 {
+
+
     public partial class HomePage : INavigableView<HomeViewModel>
     {
+        private NumberBox _currentNumberBox;
 
         int from = 0, to = 0;
         int num_cur;
@@ -106,6 +111,125 @@ namespace rand7.Views.Pages
         {
             Thread thread = new Thread(() => Speech(s));
             thread.Start();
+        }
+
+        private void Button_Keyboard_Click(object sender, RoutedEventArgs e)
+        {
+            KeyboardFlyout.Show();
+        }
+        private void NumberButton_Click(object sender, RoutedEventArgs e)
+        {
+            Wpf.Ui.Controls.Button button = (Wpf.Ui.Controls.Button)sender;
+            System.Windows.Controls.TextBlock tb = (System.Windows.Controls.TextBlock)button.Content;
+            string input = tb.Text.ToString();
+
+            if (input == "⌫")
+            {
+                if (_currentNumberBox.Value == null)
+                {
+                    return;
+                }
+                else if (_currentNumberBox.Value.ToString().Length == 1)
+                {
+                    _currentNumberBox.Value = null;
+                }
+                else
+                {
+                    string t = _currentNumberBox.Value.ToString();
+                    t = t.Substring(0, t.Length - 1);
+                    _currentNumberBox.Value = int.Parse(t);
+                }
+            }
+            else if (input == "+")
+            {
+                if (_currentNumberBox.Value == null)
+                {
+                    _currentNumberBox.Value = 1;
+                }
+                else
+                {
+                    _currentNumberBox.Value = (int)_currentNumberBox.Value + 1;
+                }
+            }
+            else if (input == "-")
+            {
+                if (_currentNumberBox.Value == null)
+                {
+                    return;
+                }
+                if (_currentNumberBox.Value == 1)
+                {
+                    _currentNumberBox.Value = null;
+                }
+                else
+                {
+                    _currentNumberBox.Value = (int)_currentNumberBox.Value - 1;
+                }
+            }
+            else if (input == "×")
+            {
+                _currentNumberBox.Value = null;
+                
+            }
+            else if (input == "√")
+            {
+                KeyboardFlyout.Hide();
+            }
+            else
+            {
+                if (_currentNumberBox.Value == null)
+                {
+                    _currentNumberBox.Value = int.Parse(input);
+                }
+                else
+                {
+                    int t = (int)_currentNumberBox.Value * 10;
+                    t += int.Parse(input);
+                    _currentNumberBox.Value = t;
+                }
+
+            }
+        }
+
+        private void NumfromButton_Click(object sender, RoutedEventArgs e)
+        {
+            KeyboardFlyout.Show();
+
+        }
+
+        
+
+
+
+
+
+        private async void PreviewTouchDown(object sender, System.Windows.Input.TouchEventArgs e)
+        {
+            if(KeyboardFlyout.IsOpen == true)
+            {
+                KeyboardFlyout.Hide();
+                _currentNumberBox.IsEnabled= true;
+            }
+
+            if (sender is NumberBox numberBox)
+            {
+                _currentNumberBox = numberBox;
+                e.Handled = true;
+                await Task.Delay(100);
+
+                KeyboardFlyout.Show();
+            }
+        }
+
+        private void KeyboardFlyout_Opened(Flyout sender, RoutedEventArgs args)
+        {
+            _currentNumberBox.IsEnabled= false;
+        }
+
+        private void KeyboardFlyout_Closed(Flyout sender, RoutedEventArgs args)
+        {
+            _currentNumberBox.IsEnabled = true;
+
         }
 
         private void Button_Roll_Click(object sender, RoutedEventArgs e)

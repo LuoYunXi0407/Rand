@@ -106,7 +106,7 @@ TextWrapping="WrapWithOverflow" />
                             <ui:TextBlock
 Appearance="Secondary"
 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-Text="若开启，摇号时根据座号列表顺序循环，若关闭，则随机循环好"
+Text="若开启，摇号时根据座号列表顺序循环，若关闭，则随机循环"
 TextWrapping="WrapWithOverflow" />
 
                            

@@ -151,6 +151,31 @@ TextWrapping="WrapWithOverflow" />
                         <ComboBoxItem Content="「张三　」" />
                     </ComboBox>
                 </ui:CardControl>
-            </StackPanel>
+
+        <TextBlock Visibility="Collapsed"
+Margin="0,24,0,0"
+FontSize="20"
+FontWeight="SemiBold"
+Text="辅助功能" />
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon Keyboard12324,  Filled=False}" Visibility="Collapsed">
+            <ui:CardControl.Header>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+Text="触控模式"
+TextWrapping="WrapWithOverflow" />
+                    <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+Text="优化数字框的交互，使其更适配触控"
+TextWrapping="WrapWithOverflow" />
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ui:ToggleSwitch  Grid.Column="1" Margin="0,0,10,0" x:Name="Set_Touch" ToggleButton.Checked="Set_Touch_Checked" ToggleButton.Unchecked="Set_Touch_Unchecked"  />
+
+        </ui:CardControl>
+    </StackPanel>
 
 </Page>

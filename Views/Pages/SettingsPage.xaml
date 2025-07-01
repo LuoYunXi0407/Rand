@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="clr-namespace:rand7.Helpers"
     xmlns:local="clr-namespace:rand7.Views.Pages"
+    xmlns:custom="clr-namespace:rand7.Controls" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:settings="clr-namespace:rand7.Views.Pages.Settings"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -22,6 +23,10 @@
         <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
     </Page.Resources>
 
+
+    <Grid>
+    
+    
     <StackPanel>
 
 
@@ -73,22 +78,10 @@
                                      Filled=False}" />
         </ui:CardControl>
 
-        <ui:Flyout
-x:Name="Set_Name_flyout" HorizontalAlignment="Right" Placement="MousePoint">
-            <StackPanel Margin="5,5,5,0">
-                <ui:TextBlock
-    Appearance="Secondary"
-                    FontSize="14"
-    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-    Text="注意：按下按钮后将自动【关闭抽号器】并且打开姓名编辑页面。&#xA;请确保你已阅读完使用文档。&#xA;&#xA;编辑完姓名后请保存再打开抽号器"
-    TextWrapping="WrapWithOverflow" />
-                
-                <Button Margin="0,8,0,0" Content="我知道了" x:Name="Button_Set_Name_Confirm" Click="Button_Set_Name_Confirm_Click" />
-            </StackPanel>
-        </ui:Flyout>
+        
 
         <TextBlock
-            Margin="0,4,0,0"
+            Margin="0,24,0,0"
             FontSize="20"
             FontWeight="SemiBold"
             Text="座号范围设置" />
@@ -161,7 +154,7 @@ TextWrapping="WrapWithOverflow" />
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <ui:NumberBox x:Name="Numfrom" Grid.Column="0" Text="1" PlaceholderText="起" Minimum="1" Maximum="99999" IsEnabled="False" MaxDecimalPlaces="0"/>
+                            <custom:NumberBoxNoAutoKeyboard PreviewTouchDown="PreviewTouchDown" x:Name="Numfrom" Grid.Column="0" Text="1" PlaceholderText="起" Minimum="1" Maximum="99999" IsEnabled="False" MaxDecimalPlaces="0"/>
 
                         <TextBlock
 FontSize="20"
@@ -169,10 +162,11 @@ FontWeight="Medium"  Grid.Column="1" Margin="0,18,0,0"
 ><Run Language="zh-cn" Text="~"/></TextBlock>
                         <!-- <ui:TextBox x:Name="Numto" Grid.Column="2"  Text="" PlaceholderText="止" InputMethod.IsInputMethodEnabled="False" PreviewTextInput="rlimitnumber"/>-->
 
-                        <ui:NumberBox x:Name="Numto" Grid.Column="2"  Value="60" PlaceholderText="止" Minimum="1" Maximum="99999" MaxDecimalPlaces="0" />
+                            <custom:NumberBoxNoAutoKeyboard PreviewTouchDown="PreviewTouchDown" x:Name="Numto" Grid.Column="2"  Value="60" PlaceholderText="止" Minimum="1" Maximum="99999" MaxDecimalPlaces="0" />
 
                     </Grid>
                 </Grid>
+                
                 <Border
                         Margin="0,20"
                         BorderBrush="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
@@ -485,31 +479,10 @@ TextWrapping="WrapWithOverflow" />
                 Icon="{ui:SymbolIcon ArrowSync24,
                      Filled=False}"/>
         </ui:CardControl>
-        <ui:Flyout
-x:Name="Set_Defualt_flyout" HorizontalAlignment="Right" Placement="MousePoint" >
-            <StackPanel Margin="5,5,5,0">
-                <TextBlock
-                    
-                    FontSize="14"
-                                Width="280"
-                                HorizontalAlignment="Left"
-                                Text="注意：你将重置所有设置到默认设置，该过程不可逆！"
-                                TextWrapping="WrapWithOverflow" />
-                <TextBlock
-                    FontSize="14"
-                                Width="280"
-                                HorizontalAlignment="Left"
-                                Text="按下确定按钮后，抽号器将【自动关闭】并将所有设置恢复到默认设置。请自行重新打开抽号器。"
-                                TextWrapping="WrapWithOverflow" />
-                <StackPanel Orientation="Horizontal">
-                    <ui:Button Margin="0,8,0,0" Content="确定" Click="Button_Set_Defualt_Confirm_Click" Appearance="Primary" />
-                    <ui:Button Margin="5,8,0,0" Content="取消" Click="Button_Set_Defualt_Cancel_Click" />
-                </StackPanel>
-            </StackPanel>
-        </ui:Flyout>
+        
         
         <TextBlock
-            Margin="0,4,0,0"
+            Margin="0,24,0,0"
             FontSize="20"
             FontWeight="SemiBold"
             Text="关于" />
@@ -567,5 +540,119 @@ x:Name="Set_Defualt_flyout" HorizontalAlignment="Right" Placement="MousePoint" >
             Visibility="Collapsed" />
         
     </StackPanel>
-    
+        <ui:Flyout
+x:Name="Set_Name_flyout" HorizontalAlignment="Right" Placement="MousePoint">
+            <StackPanel Margin="5,5,5,0">
+                <ui:TextBlock
+    Appearance="Secondary"
+                    FontSize="14"
+    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+    Text="注意：按下按钮后将自动【关闭抽号器】并且打开姓名编辑页面。&#xA;请确保你已阅读完使用文档。&#xA;&#xA;编辑完姓名后请保存再打开抽号器"
+    TextWrapping="WrapWithOverflow" />
+
+                <Button Margin="0,8,0,0" Content="我知道了" x:Name="Button_Set_Name_Confirm" Click="Button_Set_Name_Confirm_Click" />
+            </StackPanel>
+        </ui:Flyout>
+
+
+        <ui:Flyout
+x:Name="Set_Defualt_flyout" HorizontalAlignment="Right" Placement="MousePoint" >
+            <StackPanel Margin="5,5,5,0">
+                <TextBlock
+                    
+                    FontSize="14"
+                                Width="280"
+                                HorizontalAlignment="Left"
+                                Text="注意：你将重置所有设置到默认设置，该过程不可逆！"
+                                TextWrapping="WrapWithOverflow" />
+                <TextBlock
+                    FontSize="14"
+                                Width="280"
+                                HorizontalAlignment="Left"
+                                Text="按下确定按钮后，抽号器将【自动关闭】并将所有设置恢复到默认设置。请自行重新打开抽号器。"
+                                TextWrapping="WrapWithOverflow" />
+                <StackPanel Orientation="Horizontal">
+                    <ui:Button Margin="0,8,0,0" Content="确定" Click="Button_Set_Defualt_Confirm_Click" Appearance="Primary" />
+                    <ui:Button Margin="5,8,0,0" Content="取消" Click="Button_Set_Defualt_Cancel_Click" />
+                </StackPanel>
+            </StackPanel>
+        </ui:Flyout>
+
+        <ui:Flyout Margin="50,50,50,50" x:Name="KeyboardFlyout" Placement="Mouse" Opened="KeyboardFlyout_Opened" Closed="KeyboardFlyout_Closed">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+
+
+                <Grid Grid.Row="1" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ui:Button Margin="2,2,2,2" Grid.Row="0" Grid.Column="0" Click="NumberButton_Click" Width="50" Height="50" Appearance="Secondary">
+                        <TextBlock FontSize="30" Text="+"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="0" Grid.Column="1" Click="NumberButton_Click" Width="50" Height="50" Appearance="Danger">
+                        <TextBlock FontSize="30" Text="×"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="0" Grid.Column="2" Click="NumberButton_Click" Width="50" Height="50" Appearance="Secondary">
+                        <TextBlock FontSize="30" Text="-"/>
+                    </ui:Button>
+
+                    <ui:Button Margin="2,2,2,2" Grid.Row="1" Grid.Column="0" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="1"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="1" Grid.Column="1" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="2"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="1" Grid.Column="2" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="3"/>
+                    </ui:Button>
+
+                    <ui:Button Margin="2,2,2,2" Grid.Row="2" Grid.Column="0" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="4"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="2" Grid.Column="1" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="5"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="2" Grid.Column="2" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="6"/>
+                    </ui:Button>
+
+                    <ui:Button Margin="2,2,2,2" Grid.Row="3" Grid.Column="0" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="7"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="3" Grid.Column="1" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="8"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="3" Grid.Column="2" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="9"/>
+                    </ui:Button>
+
+                    <ui:Button Margin="2,2,2,2" Grid.Row="4" Grid.Column="0" Click="NumberButton_Click" Width="50" Height="50" Appearance="Success">
+                        <TextBlock FontSize="30" Text="√"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="4" Grid.Column="1" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="0"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="4" Grid.Column="2" Click="NumberButton_Click" Width="50" Height="50" Appearance="Primary">
+                        <TextBlock FontSize="20" Text="⌫"/>
+                    </ui:Button>
+
+                </Grid>
+            </Grid>
+        </ui:Flyout>
+    </Grid>
 </Page>

@@ -14,6 +14,7 @@ namespace rand7.Views.Pages
 
     public partial class SettingsPage : INavigableView<SettingsViewModel>
     {
+        private NumberBox _currentNumberBox;
 
         public SettingsViewModel ViewModel { get; }
 
@@ -316,6 +317,112 @@ namespace rand7.Views.Pages
             v.x[18].value = Student_Avoid_Duplication_Setting.SelectedIndex.ToString();
             //MessageBox.Show("?1");
             App.writeini();
+        }
+
+
+        private void KeyboardFlyout_Opened(Flyout sender, RoutedEventArgs args)
+        {
+            _currentNumberBox.IsEnabled = false;
+        }
+
+        private void KeyboardFlyout_Closed(Flyout sender, RoutedEventArgs args)
+        {
+            _currentNumberBox.IsEnabled = true;
+
+        }
+
+        private async void PreviewTouchDown(object sender, System.Windows.Input.TouchEventArgs e)
+        {
+            if (KeyboardFlyout.IsOpen == true)
+            {
+                KeyboardFlyout.Hide();
+                _currentNumberBox.IsEnabled = true;
+            }
+
+            if (sender is NumberBox numberBox)
+            {
+                _currentNumberBox = numberBox;
+                e.Handled = true;
+                await Task.Delay(100);
+
+                KeyboardFlyout.Show();
+            }
+        }
+
+
+
+        private void NumberButton_Click(object sender, RoutedEventArgs e)
+        {
+            Wpf.Ui.Controls.Button button = (Wpf.Ui.Controls.Button)sender;
+            System.Windows.Controls.TextBlock tb = (System.Windows.Controls.TextBlock)button.Content;
+            string input = tb.Text.ToString();
+
+            if (input == "⌫")
+            {
+                if (_currentNumberBox.Value == null)
+                {
+                    return;
+                }
+                else if (_currentNumberBox.Value.ToString().Length == 1)
+                {
+                    _currentNumberBox.Value = null;
+                }
+                else
+                {
+                    string t = _currentNumberBox.Value.ToString();
+                    t = t.Substring(0, t.Length - 1);
+                    _currentNumberBox.Value = int.Parse(t);
+                }
+            }
+            else if (input == "+")
+            {
+                if (_currentNumberBox.Value == null)
+                {
+                    _currentNumberBox.Value = 1;
+                }
+                else
+                {
+                    _currentNumberBox.Value = (int)_currentNumberBox.Value + 1;
+                }
+            }
+            else if (input == "-")
+            {
+                if (_currentNumberBox.Value == null)
+                {
+                    return;
+                }
+                if (_currentNumberBox.Value == 1)
+                {
+                    _currentNumberBox.Value = null;
+                }
+                else
+                {
+                    _currentNumberBox.Value = (int)_currentNumberBox.Value - 1;
+                }
+            }
+            else if (input == "×")
+            {
+                _currentNumberBox.Value = null;
+
+            }
+            else if (input == "√")
+            {
+                KeyboardFlyout.Hide();
+            }
+            else
+            {
+                if (_currentNumberBox.Value == null)
+                {
+                    _currentNumberBox.Value = int.Parse(input);
+                }
+                else
+                {
+                    int t = (int)_currentNumberBox.Value * 10;
+                    t += int.Parse(input);
+                    _currentNumberBox.Value = t;
+                }
+
+            }
         }
     }
 }

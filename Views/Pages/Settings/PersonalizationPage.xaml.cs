@@ -10,13 +10,20 @@ namespace rand7.Views.Pages.Settings
 {
     public partial class PersonalizationPage : INavigableView<PersonalizationViewModel>
     {
+        private readonly HomePage _homePage;
+
+
+
         public int test = 0;
         public PersonalizationViewModel ViewModel { get; }
         Window _mainWindow = Application.Current.MainWindow as MainWindow;
-        public PersonalizationPage(PersonalizationViewModel viewModel)
+        public PersonalizationPage(PersonalizationViewModel viewModel, HomePage homePage)
         {
             ViewModel = viewModel;
             DataContext = this;
+
+            _homePage = homePage;
+
 
             InitializeComponent();
 
@@ -27,7 +34,7 @@ namespace rand7.Views.Pages.Settings
 
             Personalization_One_Digit_Number.SelectedIndex = int.Parse(v.x[23].value);
             Personalization_Two_Character_Name.SelectedIndex = int.Parse(v.x[24].value);
-
+            _homePage = homePage;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -88,6 +95,19 @@ namespace rand7.Views.Pages.Settings
             }
             v.x[1].value = Personalization_Theme.SelectedIndex.ToString();
             App.writeini();
+        }
+
+        private void Set_Touch_Checked(object sender, RoutedEventArgs e)
+        {
+
+
+            _homePage.Numfrom.Visibility = Visibility.Collapsed;
+            _homePage.NumfromButton.Visibility = Visibility.Visible;
+        }
+
+        private void Set_Touch_Unchecked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

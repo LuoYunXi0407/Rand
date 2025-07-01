@@ -7,10 +7,15 @@ using System.Windows.Threading;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Abstractions.Controls;
 
+
 namespace rand7.Views.Pages
 {
+    
     public partial class MultiplePage : INavigableView<MultipleViewModel>
     {
+        private NumberBox _currentNumberBox;
+
+
         public static int people_num_temp = 0;
         public static int textsize_temp = 0;
         bool rolling = false;
@@ -1004,12 +1009,17 @@ namespace rand7.Views.Pages
 
 
 
-        private void TextSize_ValueChanged(object sender, RoutedEventArgs e)
+        /*private void TextSize_ValueChanged(object sender, RoutedEventArgs e)
+        {
+            
+        }*/
+
+        private void TextSize_ValueChanged(object sender, NumberBoxValueChangedEventArgs args)
         {
             if (TextSize.Value == null)
             {
                 TextSize.Value = 100;
-                    }
+            }
             TextSizeSlider.Value = (int)TextSize.Value;
 
             for (int i = 0; i < people_num_temp; i++)
@@ -1031,6 +1041,113 @@ namespace rand7.Views.Pages
                 tb.FontSize = (int)TextSize.Value;
             }
 
+        }
+
+        
+
+        private void KeyboardFlyout_Opened(Flyout sender, RoutedEventArgs args)
+        {
+            _currentNumberBox.IsEnabled = false;
+        }
+
+        private void KeyboardFlyout_Closed(Flyout sender, RoutedEventArgs args)
+        {
+            _currentNumberBox.IsEnabled = true;
+
+        }
+
+        private async void PreviewTouchDown(object sender, System.Windows.Input.TouchEventArgs e)
+        {
+            if (KeyboardFlyout.IsOpen == true)
+            {
+                KeyboardFlyout.Hide();
+                _currentNumberBox.IsEnabled = true;
+            }
+
+            if (sender is NumberBox numberBox)
+            {
+                _currentNumberBox = numberBox;
+                e.Handled = true;
+                await Task.Delay(100);
+
+                KeyboardFlyout.Show();
+            }
+        }
+
+        
+
+        private void NumberButton_Click(object sender, RoutedEventArgs e)
+        {
+            Wpf.Ui.Controls.Button button = (Wpf.Ui.Controls.Button)sender;
+            System.Windows.Controls.TextBlock tb = (System.Windows.Controls.TextBlock)button.Content;
+            string input = tb.Text.ToString();
+
+            if (input == "⌫")
+            {
+                if (_currentNumberBox.Value == null)
+                {
+                    return;
+                }
+                else if (_currentNumberBox.Value.ToString().Length == 1)
+                {
+                    _currentNumberBox.Value = null;
+                }
+                else
+                {
+                    string t = _currentNumberBox.Value.ToString();
+                    t = t.Substring(0, t.Length - 1);
+                    _currentNumberBox.Value = int.Parse(t);
+                }
+            }
+            else if (input == "+")
+            {
+                if (_currentNumberBox.Value == null)
+                {
+                    _currentNumberBox.Value = 1;
+                }
+                else
+                {
+                    _currentNumberBox.Value = (int)_currentNumberBox.Value + 1;
+                }
+            }
+            else if (input == "-")
+            {
+                if (_currentNumberBox.Value == null)
+                {
+                    return;
+                }
+                if (_currentNumberBox.Value == 1)
+                {
+                    _currentNumberBox.Value = null;
+                }
+                else
+                {
+                    _currentNumberBox.Value = (int)_currentNumberBox.Value - 1;
+                }
+            }
+            else if (input == "×")
+            {
+                _currentNumberBox.Value = null;
+
+            }
+            else if (input == "√")
+            {
+                KeyboardFlyout.Hide();
+            }
+            else
+            {
+                if (_currentNumberBox.Value == null)
+                {
+                    _currentNumberBox.Value = int.Parse(input);
+                }
+                else
+                {
+                    int t = (int)_currentNumberBox.Value * 10;
+                    t += int.Parse(input);
+                    _currentNumberBox.Value = t;
+                }
+
+            }
         }
     }
 }

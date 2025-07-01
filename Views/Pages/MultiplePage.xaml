@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:rand7.Views.Pages"
+    xmlns:custom="clr-namespace:rand7.Controls" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="多人模式"
@@ -17,7 +18,84 @@
             ScrollViewer.PanningMode="VerticalOnly"
 
     mc:Ignorable="d">
+    <Grid>
+        <ui:Flyout Margin="50,50,50,50" x:Name="KeyboardFlyout" Placement="Mouse" Opened="KeyboardFlyout_Opened" Closed="KeyboardFlyout_Closed">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
+
+
+                <Grid Grid.Row="1" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ui:Button Margin="2,2,2,2" Grid.Row="0" Grid.Column="0" Click="NumberButton_Click" Width="50" Height="50" Appearance="Secondary">
+                        <TextBlock FontSize="30" Text="+"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="0" Grid.Column="1" Click="NumberButton_Click" Width="50" Height="50" Appearance="Danger">
+                        <TextBlock FontSize="30" Text="×"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="0" Grid.Column="2" Click="NumberButton_Click" Width="50" Height="50" Appearance="Secondary">
+                        <TextBlock FontSize="30" Text="-"/>
+                    </ui:Button>
+
+                    <ui:Button Margin="2,2,2,2" Grid.Row="1" Grid.Column="0" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="1"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="1" Grid.Column="1" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="2"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="1" Grid.Column="2" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="3"/>
+                    </ui:Button>
+
+                    <ui:Button Margin="2,2,2,2" Grid.Row="2" Grid.Column="0" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="4"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="2" Grid.Column="1" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="5"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="2" Grid.Column="2" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="6"/>
+                    </ui:Button>
+
+                    <ui:Button Margin="2,2,2,2" Grid.Row="3" Grid.Column="0" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="7"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="3" Grid.Column="1" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="8"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="3" Grid.Column="2" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="9"/>
+                    </ui:Button>
+
+                    <ui:Button Margin="2,2,2,2" Grid.Row="4" Grid.Column="0" Click="NumberButton_Click" Width="50" Height="50" Appearance="Success">
+                        <TextBlock FontSize="30" Text="√"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="4" Grid.Column="1" Click="NumberButton_Click" Width="50" Height="50">
+                        <TextBlock FontSize="30" Text="0"/>
+                    </ui:Button>
+                    <ui:Button Margin="2,2,2,2" Grid.Row="4" Grid.Column="2" Click="NumberButton_Click" Width="50" Height="50" Appearance="Primary">
+                        <TextBlock FontSize="20" Text="⌫"/>
+                    </ui:Button>
+
+                </Grid>
+            </Grid>
+        </ui:Flyout>
+    
     <StackPanel>
 
         <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon PeopleCommunity24,  Filled=False}">
@@ -47,7 +125,7 @@ TextWrapping="WrapWithOverflow" />
                 </Grid.ColumnDefinitions>
                 <!--<ui:TextBox x:Name="People_Num" Grid.Column="0" Text="" PlaceholderText="人数" InputMethod.IsInputMethodEnabled="False" PreviewTextInput="rlimitnumber"/>-->
 
-                <ui:NumberBox TextWrapping="Wrap" Grid.Column="0"  Width="auto" Minimum="1" Maximum="99999" PlaceholderText="人数" x:Name="People_Num"/>
+                    <custom:NumberBoxNoAutoKeyboard PreviewTouchDown="PreviewTouchDown" TextWrapping="Wrap" Grid.Column="0"  Width="auto"  Minimum="1" Maximum="99999"  PlaceholderText="人数" x:Name="People_Num" MaxWidth="150"/>
                 <!--<TextBlock
 FontSize="20"
 FontWeight="Medium"  Grid.Column="1" 
@@ -75,22 +153,25 @@ TextWrapping="WrapWithOverflow" />
             <Grid  >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Slider
                     x:Name="TextSizeSlider"
                     Width="250"
+                    
                     Margin="0,0,20,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     IsSnapToTickEnabled="True"
                     Maximum="150"
-                    Minimum="50"
+                    Minimum="25"
                     Value="100"
                     ValueChanged="TextSizeSlider_ValueChanged"
                     TickFrequency="5"
+                    IsMoveToPointEnabled="True"
+                    AutoToolTipPlacement="BottomRight"
                      />
-                <ui:NumberBox TextWrapping="Wrap" Grid.Column="1" MaxDecimalPlaces="0"  PlaceholderText="字体大小" SmallChange="5" Width="auto" Value="100"  Maximum="150" Minimum="50"  ValueChanged="TextSize_ValueChanged"  x:Name="TextSize"/>
+                    <ui:NumberBox TextWrapping="Wrap" Grid.Column="1" MaxDecimalPlaces="0"  PlaceholderText="字体大小" SmallChange="5" Width="auto" MaxWidth="150" Value="100"  Maximum="150" Minimum="25"  ValueChanged="TextSize_ValueChanged"  x:Name="TextSize"/>
             </Grid>
         </ui:CardControl>
         
@@ -104,4 +185,5 @@ TextWrapping="WrapWithOverflow" />
 
         </WrapPanel>
     </StackPanel>
+    </Grid>
 </Page>
