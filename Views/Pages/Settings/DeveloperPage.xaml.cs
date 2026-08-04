@@ -20,7 +20,7 @@ namespace rand7.Views.Pages.Settings
             string t = "";
             for (int i = 1; i <= v.num; i++)
             {
-                t += v.x[i].section + "." + v.x[i].key + ":" + v.x[i].value + "\n";
+                t += i.ToString()+": "+ v.x[i].section + "." + v.x[i].key + ":" + v.x[i].value + "\n";
             }
             t += "\n";
             foreach (int i in Views.Pages.HomePage.num_list)

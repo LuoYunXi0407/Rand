@@ -24,7 +24,6 @@
         <StackPanel>
         <TextBlock
 FontSize="20"
-            Margin="0,24,0,0"
 FontWeight="SemiBold"
 Text="主题" />
         <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon WeatherMoon24,  Filled=False}">
@@ -56,6 +55,7 @@ TextWrapping="WrapWithOverflow" />
             </ComboBox>
         </ui:CardControl>
         <TextBlock
+            Margin="0,24,0,0"
 FontSize="20"
 FontWeight="SemiBold"
 Text="常规" />

@@ -11,6 +11,11 @@ namespace rand7.Views.Pages.Settings
     public partial class PersonalizationPage : INavigableView<PersonalizationViewModel>
     {
         public int test = 0;
+        public int test1 = 0;
+        public int test2 = 0;
+        public int test3 = 0;
+
+
         public PersonalizationViewModel ViewModel { get; }
         Window _mainWindow = Application.Current.MainWindow as MainWindow;
         public PersonalizationPage(PersonalizationViewModel viewModel)
@@ -48,19 +53,35 @@ namespace rand7.Views.Pages.Settings
 
         private void Personalization_One_Digit_Number_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (Personalization_Two_Character_Name == null) return;
+            if (test1 == 0)
+            {
+                test++;
+                return;
+            }
+            if (Personalization_One_Digit_Number == null) return;
             v.x[23].value = Personalization_One_Digit_Number.SelectedIndex.ToString();
             App.writeini();
         }
 
         private void Personalization_Two_Character_Name_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
+            if (test2 == 0)
+            {
+                test++;
+                return;
+            }
             if (Personalization_Two_Character_Name == null) return;
             v.x[24].value = Personalization_Two_Character_Name.SelectedIndex.ToString();
             App.writeini();
         }
         private void Personalization_Home_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
+            if (test3 == 0)
+            {
+                test++;
+                return;
+            }
+            if (Personalization_Home == null) return;
             v.x[25].value = Personalization_Home.SelectedIndex.ToString();
             App.writeini();
         }
