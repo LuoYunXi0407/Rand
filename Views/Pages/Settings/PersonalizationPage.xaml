@@ -22,10 +22,43 @@
 
 
         <StackPanel>
-                <TextBlock
+        <TextBlock
 FontSize="20"
+            Margin="0,24,0,0"
 FontWeight="SemiBold"
 Text="主题" />
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon WeatherMoon24,  Filled=False}">
+            <ui:CardControl.Header>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+Text="颜色模式"
+TextWrapping="WrapWithOverflow" />
+                    <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+Text="切换亮色、暗色或者高对比度模式，抑或是跟随系统"
+TextWrapping="WrapWithOverflow" />
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ComboBox
+                        Focusable="False"   
+                        Name="Personalization_Theme"
+    SelectionChanged="Personalization_Theme_SelectionChanged"
+    HorizontalAlignment="Left"
+    SelectedIndex="0" >
+                <ComboBoxItem Content="跟随系统设置"  />
+                <ComboBoxItem Content="亮色" />
+                <ComboBoxItem Content="暗色" />
+                <ComboBoxItem Content="高对比度" />
+            </ComboBox>
+        </ui:CardControl>
+        <TextBlock
+FontSize="20"
+FontWeight="SemiBold"
+Text="常规" />
         <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon NumberSymbol24,  Filled=False}" Visibility="Collapsed">
             <ui:CardControl.Header>
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
@@ -55,32 +88,31 @@ TextWrapping="WrapWithOverflow" />
                 <ComboBoxItem Content="「3」" />
             </ComboBox>
         </ui:CardControl>
-        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon WeatherMoon24,  Filled=False}">
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon Home24,  Filled=False}">
                     <ui:CardControl.Header>
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
                             <ui:TextBlock
 Margin="0"
 FontTypography="BodyStrong"
 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-Text="颜色模式"
+Text="默认首页"
 TextWrapping="WrapWithOverflow" />
                             <ui:TextBlock
 Appearance="Secondary"
 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-Text="切换亮色、暗色或者高对比度模式，抑或是跟随系统"
+Text="切换启动时显示的页面"
 TextWrapping="WrapWithOverflow" />
                         </StackPanel>
                     </ui:CardControl.Header>
                     <ComboBox
                         Focusable="False"   
-                        Name="Personalization_Theme"
-    SelectionChanged="Personalization_Theme_SelectionChanged"
+                        Name="Personalization_Home"
+    SelectionChanged="Personalization_Home_SelectionChanged"    
     HorizontalAlignment="Left"
     SelectedIndex="0" >
-                        <ComboBoxItem Content="跟随系统设置"  />
-                        <ComboBoxItem Content="亮色" />
-                        <ComboBoxItem Content="暗色" />
-                        <ComboBoxItem Content="高对比度" />
+                        <ComboBoxItem Content="主页"  />
+                        <ComboBoxItem Content="单人" />
+                        <ComboBoxItem Content="多人" />
                     </ComboBox>
                 </ui:CardControl>
         

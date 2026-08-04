@@ -159,6 +159,8 @@ namespace rand7
 
             v.set("Personalization", "One_Digit_Number", "1");
             v.set("Personalization", "Two_Character_Name", "1");
+            v.set("Personalization", "Default_Home", "0");
+
 
             App.readini();
             App.writeini();

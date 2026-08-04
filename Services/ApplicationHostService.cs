@@ -50,7 +50,9 @@ namespace rand7.Services
                 )!;
                 _navigationWindow!.ShowWindow();
 
-                _navigationWindow.Navigate(typeof(Views.Pages.HomePage));
+                if (v.x[25].value == "0") _navigationWindow.Navigate(typeof(Views.Pages.HomePage));
+                if (v.x[25].value == "1") _navigationWindow.Navigate(typeof(Views.Pages.SinglePage));
+                if (v.x[25].value == "2") _navigationWindow.Navigate(typeof(Views.Pages.MultiplePage));
             }
 
             await Task.CompletedTask;
