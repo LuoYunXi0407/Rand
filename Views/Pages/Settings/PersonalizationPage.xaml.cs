@@ -34,6 +34,8 @@ namespace rand7.Views.Pages.Settings
 
             Personalization_One_Digit_Number.SelectedIndex = int.Parse(v.x[23].value);
             Personalization_Two_Character_Name.SelectedIndex = int.Parse(v.x[24].value);
+            Personalization_Home.SelectedIndex = int.Parse(v.x[25].value);
+
             _homePage = homePage;
         }
 
@@ -62,6 +64,11 @@ namespace rand7.Views.Pages.Settings
         {
             if (Personalization_Two_Character_Name == null) return;
             v.x[24].value = Personalization_Two_Character_Name.SelectedIndex.ToString();
+            App.writeini();
+        }
+        private void Personalization_Home_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            v.x[25].value = Personalization_Home.SelectedIndex.ToString();
             App.writeini();
         }
 
@@ -109,5 +116,7 @@ namespace rand7.Views.Pages.Settings
         {
 
         }
+
+        
     }
 }
