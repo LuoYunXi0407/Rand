@@ -356,6 +356,72 @@ TextWrapping="WrapWithOverflow" />
             FontSize="20"
             FontWeight="SemiBold"
             Text="自定义抽号器" />
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon WindowHeaderHorizontalOff20,  Filled=False}">
+            <ui:CardControl.Header>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+Text="关闭时行为"
+TextWrapping="WrapWithOverflow" />
+                    <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+Text="建议最小化到托盘，以便从悬浮球唤起"
+TextWrapping="WrapWithOverflow" />
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ComboBox
+                        Focusable="False"   
+                        Name="On_Close"
+    SelectionChanged="On_Close_SelectionChanged"    
+    HorizontalAlignment="Left"
+    SelectedIndex="0" >
+                <ComboBoxItem Content="最小化到托盘"  />
+                <ComboBoxItem Content="结束抽号器" />
+            </ComboBox>
+        </ui:CardControl>
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon PhoneDesktop24,  Filled=False}" Visibility="Collapsed">
+            <ui:CardControl.Header>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+Text="开机自启动" 
+TextWrapping="WrapWithOverflow" />
+                    <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+Text="可能不成功"
+TextWrapping="WrapWithOverflow" />
+
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ui:ToggleSwitch Margin="12,0,0,0" x:Name="AutoRun" ToggleButton.Checked="AutoRun_Checked"  Unchecked="AutoRun_Unchecked"/>
+
+        </ui:CardControl>
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon WindowAd20,  Filled=False}" >
+            <ui:CardControl.Header>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <ui:TextBlock
+Margin="0"
+FontTypography="BodyStrong"
+Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+Text="悬浮球"
+TextWrapping="WrapWithOverflow" />
+                    <ui:TextBlock
+Appearance="Secondary"
+Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+Text="显示一个置顶的悬浮球，点击即可唤起或回到抽号器"
+TextWrapping="WrapWithOverflow" />
+
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ui:ToggleSwitch Margin="12,0,0,0" x:Name="Floating_Ball" ToggleButton.Checked="Floating_Ball_Checked"  Unchecked="Floating_Ball_Unchecked"/>
+
+        </ui:CardControl>
         <ui:CardAction
             Margin="0,6,0,0"
             Command="{Binding ViewModel.NavigatePersonalizationPageCommand}"

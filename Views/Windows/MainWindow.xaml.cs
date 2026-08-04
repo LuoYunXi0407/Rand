@@ -1,4 +1,6 @@
 ﻿using rand7.ViewModels.Windows;
+using System.ComponentModel;
+using System.Windows.Interop;
 using System.Windows.Media;
 using Wpf.Ui;
 using Wpf.Ui.Abstractions;
@@ -9,6 +11,7 @@ namespace rand7.Views.Windows
 {
     public partial class MainWindow : INavigationWindow
     {
+        private bool _allowClose = false;
         public MainWindowViewModel ViewModel { get; }
 
         public MainWindow(
@@ -25,6 +28,8 @@ namespace rand7.Views.Windows
             SystemThemeWatcher.Watch(this);
 
             InitializeComponent();
+            Closing += MainWindow_Closing;
+
             RootNavigation.IsBackButtonVisible = NavigationViewBackButtonVisible.Auto;
 
             SetPageService(pageService);
@@ -36,7 +41,14 @@ namespace rand7.Views.Windows
 
 
         }
-
+        private void MainWindow_Closing(object? sender, CancelEventArgs e)
+        {
+            if (v.x[26].value == "0" && !_allowClose)
+            {
+                e.Cancel = true;
+                Hide();
+            }
+        }
         #region INavigationWindow methods
 
         public INavigationView GetNavigation() => RootNavigation;
@@ -50,7 +62,31 @@ namespace rand7.Views.Windows
         public void CloseWindow() => Close();
 
         #endregion INavigationWindow methods
+        const int WM_SHOWME = 0x8001; // WM_APP + 1
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
 
+            var source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
+            source.AddHook(WndProc);
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg == WM_SHOWME)
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    Show();
+                    WindowState = WindowState.Normal;
+                    Activate();
+                });
+
+                handled = true;
+            }
+
+            return IntPtr.Zero;
+        }
         /// <summary>
         /// Raises the closed event.
         /// </summary>
@@ -96,6 +132,19 @@ namespace rand7.Views.Windows
                     yield return descendant;
                 }
             }
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            _allowClose = true;
+            Close();
+
+        }
+
+        private void Show_Click(object sender, RoutedEventArgs e)
+        {
+            Show();
+            Activate();
         }
     }
 }

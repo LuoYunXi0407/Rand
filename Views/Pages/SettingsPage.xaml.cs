@@ -14,7 +14,7 @@ namespace rand7.Views.Pages
 
     public partial class SettingsPage : INavigableView<SettingsViewModel>
     {
-
+        int test = 0;
         public SettingsViewModel ViewModel { get; }
 
         public SettingsPage(SettingsViewModel viewModel)
@@ -61,6 +61,23 @@ namespace rand7.Views.Pages
             {
                 Student_Avoid_Duplication_Mode_Menu.IsEnabled = true;
                 Student_Avoid_Duplication_Setting_Expander.IsExpanded = true;
+            }
+            On_Close.SelectedIndex = int.Parse(v.x[26].value);
+            if (v.x[27].value == "1")
+            {
+                AutoRun.IsChecked = true;
+            }
+            else
+            {
+                AutoRun.IsChecked = false;
+            }
+            if (v.x[28].value == "1")
+            {
+                Floating_Ball.IsChecked = true;
+            }
+            else
+            {
+                Floating_Ball.IsChecked = false;
             }
         }
 
@@ -316,6 +333,51 @@ namespace rand7.Views.Pages
             v.x[18].value = Student_Avoid_Duplication_Setting.SelectedIndex.ToString();
             //MessageBox.Show("?1");
             App.writeini();
+        }
+
+        private void On_Close_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if(test == 0)
+            {
+                test++;
+                return;
+            }
+            if (On_Close == null) return;
+            v.x[26].value = On_Close.SelectedIndex.ToString();
+            App.writeini();
+
+
+        }
+
+        private void AutoRun_Checked(object sender, RoutedEventArgs e)
+        {
+            if(AutoRun == null) return;
+            v.x[27].value = "1";
+            App.writeini();
+        }
+
+        private void Floating_Ball_Checked(object sender, RoutedEventArgs e)
+        {
+            if(Floating_Ball == null) return;
+            v.x[28].value = "1";
+            App.writeini();
+            App.floatingBall.Show();
+        }
+
+        private void AutoRun_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if(AutoRun == null) return;
+            v.x[27].value = "0";
+            App.writeini();
+        }
+
+        private void Floating_Ball_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (Floating_Ball == null) return;
+            v.x[28].value = "0";
+            App.writeini();
+            App.floatingBall.Hide();
+
         }
     }
 }

@@ -32,6 +32,8 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Shell;
 using System.Diagnostics;
+using System.Windows.Interop;
+
 
 namespace rand7
 {
@@ -110,6 +112,12 @@ namespace rand7
 
         [DllImport("user32.dll")]
         private static extern bool SetFocus(IntPtr hWnd);
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr SendMessage(
+        IntPtr hWnd,
+        uint Msg,
+        IntPtr wParam,
+        IntPtr lParam);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
@@ -161,6 +169,9 @@ namespace rand7
             v.set("Personalization", "Two_Character_Name", "1");
             v.set("Personalization", "Default_Home", "0");
 
+            v.set("Program", "Close_Action", "0");//26
+            v.set("Program", "Auto_Run", "0");
+            v.set("Program", "Floating_Ball", "1");
 
             App.readini();
             App.writeini();
@@ -272,7 +283,7 @@ namespace rand7
            app.InitializeComponent();
            app.Run();
        }
-
+        const int WM_SHOWME = 0x8001; // WM_APP + 1
         private static bool EnumWindowsProc(IntPtr hwnd, IntPtr lParam)
         {
             // 获取窗口文本
@@ -283,23 +294,26 @@ namespace rand7
             if (windowText.Contains("抽号器"))
             {
                 // 获取窗口所属进程ID
-                uint processId;
-                GetWindowThreadProcessId(hwnd, out processId);
+                //uint processId;
+                //GetWindowThreadProcessId(hwnd, out processId);
 
                 // 获取进程对象
-                Process process = Process.GetProcessById((int)processId);
+                //Process process = Process.GetProcessById((int)processId);
 
                 // 确认进程名称以进一步验证
-                if (process.MainWindowTitle.Contains("抽号器"))
+                //if (process.MainWindowTitle.Contains("抽号器"))
                 {
+                    SendMessage(hwnd, WM_SHOWME, IntPtr.Zero, IntPtr.Zero);
+
+                    /*
                     // 最大化窗口
-                    ShowWindow(hwnd, 5);
+                    ShowWindow(hwnd, 9);
 
                     // 设置为前台窗口
                     SetForegroundWindow(hwnd);
 
                     // 设置焦点
-                    SetFocus(hwnd);
+                    SetFocus(hwnd);*/
 
                     // 结束程序
                     Environment.Exit(0);
@@ -312,6 +326,8 @@ namespace rand7
             // 继续枚举下一个窗口
             return true;
         }
+       
+
 
         // 获取窗口文本的方法
         private static string GetWindowText(IntPtr hWnd)
@@ -333,6 +349,9 @@ namespace rand7
     /// </summary>
     public partial class App
     {
+        public static FloatingBallWindow floatingBall;
+
+
         // The.NET Generic Host provides dependency injection, configuration, logging, and other services.
         // https://docs.microsoft.com/dotnet/core/extensions/generic-host
         // https://docs.microsoft.com/dotnet/core/extensions/dependency-injection
@@ -415,7 +434,6 @@ namespace rand7
         {
             _host.Start();
 
-
             Window _mainWindow = Application.Current.MainWindow as MainWindow;
             if (v.x[1].value == "0")
             {
@@ -437,9 +455,13 @@ namespace rand7
                 SystemThemeWatcher.UnWatch(_mainWindow);
                 ApplicationThemeManager.Apply(ApplicationTheme.HighContrast);
             }
+            floatingBall = new FloatingBallWindow();
 
 
-
+            if (v.x[28].value == "1")
+            {
+                floatingBall.Show();
+            }
         }
 
         /// <summary>

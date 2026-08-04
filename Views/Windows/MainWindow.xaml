@@ -70,12 +70,13 @@
             </ui:TitleBar.Icon>
         </ui:TitleBar>
 
-        <tray:NotifyIcon>
+        <tray:NotifyIcon LeftClick="Show_Click">
             <tray:NotifyIcon.Menu>
                 <ContextMenu >
-                    <MenuItem Header="Move To Center"></MenuItem>
-
-                    <MenuItem Header="Exit"></MenuItem>
+                    
+                    <MenuItem Header="显示窗口" Click="Show_Click"  ></MenuItem>
+                    <MenuItem Header="悬浮球移到屏幕中心" Visibility="Collapsed"></MenuItem>
+                    <MenuItem Header="退出" Click="Close_Click"></MenuItem>
                 </ContextMenu>
             </tray:NotifyIcon.Menu>
         </tray:NotifyIcon>
