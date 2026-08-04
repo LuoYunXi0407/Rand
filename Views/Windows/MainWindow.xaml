@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:rand7.Views.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
     Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
     Width="800"
     Height="600"
@@ -68,6 +69,16 @@
                 <ui:ImageIcon Source="pack://application:,,,/Assets/wpfui-icon-256.png" />
             </ui:TitleBar.Icon>
         </ui:TitleBar>
-        
+
+        <tray:NotifyIcon>
+            <tray:NotifyIcon.Menu>
+                <ContextMenu >
+                    <MenuItem Header="Move To Center"></MenuItem>
+
+                    <MenuItem Header="Exit"></MenuItem>
+                </ContextMenu>
+            </tray:NotifyIcon.Menu>
+        </tray:NotifyIcon>
     </Grid>
+    
 </ui:FluentWindow>
